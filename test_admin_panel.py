@@ -6,7 +6,10 @@ import pytest
 
 class TestClass:
     def test_login_admin(self):
-        browser = webdriver.Chrome()
+        browser = webdriver.Firefox()
+        # browser = webdriver.Chrome()
+        # browser = webdriver.Edge('C:\\msedgedriver\\msedgedriver.exe')
+
         browser.get("http://localhost/litecart/admin/")
         browser.find_element(By.CSS_SELECTOR, ".input-wrapper>[name='username']").send_keys("admin")
         browser.find_element(By.CSS_SELECTOR, ".input-wrapper>[name='password']").send_keys("admin")
