@@ -3,22 +3,12 @@ from selenium.common.exceptions import NoSuchElementException
 
 
 class TestSticker:
-    def test_find_sticker_new(self, browser):
-        browser.find_element(By.CSS_SELECTOR, "a .fa.fa-chevron-circle-left").click()
-        ducks = browser.find_elements(By.CSS_SELECTOR, "li a.link")
-        for ducks in ducks:
-            try:
-                sticker_new = browser.find_element(By.CLASS_NAME, "sticker new")
-                return True
-            except NoSuchElementException:
-                return False
-
-    def test_find_sticker_sale(self, browser):
-        browser.find_element(By.CSS_SELECTOR, "a .fa.fa-chevron-circle-left").click()
-        ducks = browser.find_elements(By.CSS_SELECTOR, "li a.link")
-        for ducks in ducks:
-            try:
-                sticker_sale = browser.find_element(By.CLASS_NAME, "sticker sale")
-                return True
-            except NoSuchElementException:
-                return False
+    def test_find_sticker_new(self, driver):
+        ducks = driver.find_elements(By.XPATH, ".//ul[@class='listing-wrapper products']//li")
+        all_ducks = len(ducks)
+        all_sticker = 0
+        for duck in ducks:
+            sticker = duck.find_elements(By.XPATH, "//*[@class='product column shadow hover-light']//div/div")
+            all_sticker = len(sticker)
+        assert all_ducks == all_sticker, "Стикеры есть не у каждого товара/ " \
+                                         "У одного товара стикеров больше чем один"
